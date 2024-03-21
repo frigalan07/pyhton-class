@@ -8,7 +8,7 @@ Fecha:
 
 ## Descripción del Problema
 
-
+El código debe contar las ocurrencias de los símbolos 
 
 
 ## Especificación de Requisitos
