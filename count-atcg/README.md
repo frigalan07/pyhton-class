@@ -1,22 +1,23 @@
-# Nombre del proyecto
+# Conteo de nucleótidos 'atcg'
 
-Descripción de proyecto general.
+El siguiente proyecto toma la necesidad de cuantificar la ocurrencia de cada base nitrogeneda en una secuencia de DNA de interés. 
 
 ## Uso
 
-Especificar argumentos que utiliza el script y que deben contener los mismos.
+El programa toma un archivo que contiene la secuencia de DNA en formato raw, nombrado sequence.txt
 
 ## Salida
 
-Información o datos de salida que dará el script.
+Como datos de salida se mostrará en pantalla la ocurrencia de cada una de las bases 'A', 'T', 'C', 'G'. 
 
 ## Control de errores
 
-Como maneja el código los errores que pueda surgir 
+Cuando al programa se le da un archivo que no existe, que no contiene el formato adecuado, el programa mostrará un mensaje de error, especificando porque no puede funcionar correctamente.
 
 ## Pruebas
 
-Especificar las pruebas que el script ejecuta y como se pueden encontrar.
+Hay cuatro casos de prueba: 
+
 
 ## Datos
 
