@@ -18,15 +18,35 @@ Cuando al programa se le da un archivo que no existe, que no contiene el formato
 
 Hay cuatro casos de prueba: 
 
+Caso de prueba 1:
+
+Descripción: Secuencia válida en formato raw
+Datos de entrada: sequence.txt ATGATCGG
+Resultado esperado: Ocurrencia de los nucleótidos A: 2 T: 2 C: 1 G: 3
+
+Caso de prueba 2:
+
+Descripción: Secuencia con caracteres no válidos
+Datos de entrada: sequence.txt ATGATCXG
+Resultado esperado: Mensaje de error reportando que tiene caracteres no válidos.
+
+Caso de prueba 3:
+
+Descripción: Secuencia que no esta en formato raw.
+Datos de entrada: Archivo sequence.txt (que no esta en formato raw)
+Resultado esperado: Mensaje de error, reportando que el formato del archivo no es correcto
+
+Caso de prueba 4:
+
+Descripción: Comprobación de la existencia del archivo.
+Datos de entrada: sequence.txt (dicho archivo no existe).
+Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
+
 
 ## Datos
 
-Tipo de datos que admite el script, dando todas las especificaciones que estas deben contener.  
+Archivo con una secuencia de DNA en formato raw, nombrada 'sequence.txt'
 
-## Metadatos y documentación
-
-Este README ofrece información de uso básico. Para obtener información más detallada sobre el diseño y 
-la implementación del script, consulte [Enlace a la documentación].
 
 ## Código fuente
 
