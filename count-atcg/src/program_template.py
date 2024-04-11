@@ -59,18 +59,12 @@ python3 count-atcg [sequence.txt]
 
 ```python
 
-def main():
-    try:
-        with open('sequence.txt', 'r') as file:
-            sequence = file.read().strip()
-            if '\r' in sequence or '\n' in sequence:
-                raise ValueError("El archivo no está en formato raw.")
-    except FileNotFoundError:
-        print("El archivo sequence.txt no se encontró.")
-        return
-    except ValueError as e:
-        print("Error:", e)
-        return
+def count_nucleotides(sequence):
+    counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+    for nucleotide in sequence:
+        if nucleotide in counts:
+            counts[nucleotide] += 1
+    return counts
 
 ```
 
@@ -80,6 +74,13 @@ def main():
 # ===========================================================================
 
 ```python
+
+def count_nucleotides(sequence):
+    counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+    for nucleotide in sequence:
+        if nucleotide in counts:
+            counts[nucleotide] += 1
+    return counts
 
 def main():
     try:
