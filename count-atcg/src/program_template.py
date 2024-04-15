@@ -10,20 +10,23 @@ AUTHOR
 Frida Galán Hernández
 
 DESCRIPTION
-        El siguiente script recibe un archivo de entrada llamado sequence.txt en formato raw y cuenta la ocurrencia de cada uno de los nucelótidos.
-        Se imprime a pantalla los resultados o un mensaje de error si el formato del archivo no es correcto o si este no existe.
 
+      El siguiente script acepta el nombre del archivo con una secuencia de DNA desde línea de comando y te permite especificar 
+      que nucleótidos deseas contar con la opción -n o --nucleotides.
+      
 CATEGORY
 
-        Procesamiento de archivos 
+        Procesamiento de archivos de texto y análisis de datos
 
 USAGE
 
-    % python count-atcg [sequence.txt]
+    count_atgc.py dna.seq -n A T
+    count_atgc.py dna.seq -nucleotides A T
     
 
 ARGUMENTS
-       sequence.txt
+       dna.seq -n A T
+       dna.seq -nucleotides A T
 
 METHOD
        Utilización de funciones 
@@ -37,8 +40,7 @@ METHOD
 # ===========================================================================
        ```python
 
-open()
-print()
+import argparse 
 
 ```
 
@@ -48,7 +50,9 @@ print()
 # ===========================================================================
 
 ```bash
-python3 count-atcg [sequence.txt]
+
+count_atgc.py dna.seq -n A T
+count_atgc.py dna.seq -nucleotides A T
 
 ```
 
@@ -59,12 +63,17 @@ python3 count-atcg [sequence.txt]
 
 ```python
 
-def count_nucleotides(sequence):
-    counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+def count_nucleotides(sequence, nucleotides):
+      sequence = sequence.upper() 
+      counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
     for nucleotide in sequence:
         if nucleotide in counts:
             counts[nucleotide] += 1
-    return counts
+    if nucleotides:
+          selected_nucleotide_counts = {nucleotide: counts[nucleotide] for nucleotide in nucleotides} 
+          return selected_nucleotide_counts
+    else: 
+          return counts
 
 ```
 
@@ -75,35 +84,48 @@ def count_nucleotides(sequence):
 
 ```python
 
-def count_nucleotides(sequence):
+def count_nucleotides(sequence, nucleotides):
+    sequence = sequence.upper()  # Convertir la secuencia a mayúsculas
     counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
     for nucleotide in sequence:
         if nucleotide in counts:
             counts[nucleotide] += 1
-    return counts
+    if nucleotides:
+        selected_nucleotide_counts = {nucleotide: counts[nucleotide] for nucleotide in nucleotides}
+        return selected_nucleotide_counts
+    else:
+        return counts
+
 
 def main():
+    parser = argparse.ArgumentParser(description="Count nucleotides in a DNA sequence.")
+    parser.add_argument("filename", help="Name of the file containing the DNA sequence")
+    parser.add_argument("-n", "--nucleotides", nargs="+", help="Nucleotides to count")
+    args = parser.parse_args()
+
+    filename = args.filename
+    nucleotides = args.nucleotides if args.nucleotides else []
+
     try:
-        with open('sequence.txt', 'r') as file:
+        with open(filename, 'r') as file:
             sequence = file.read().strip()
-            if '\r' in sequence or '\n' in sequence:
-                raise ValueError("El archivo no está en formato raw.")
     except FileNotFoundError:
-        print("El archivo sequence.txt no se encontró.")
-        return
-    except ValueError as e:
-        print("Error:", e)
+        print(f"The file {filename} was not found.")
         return
 
-    nucleotide_counts = count_nucleotides(sequence)
+    nucleotide_counts = count_nucleotides(sequence, nucleotides)
 
-    print("Contenido de nucleótidos en la secuencia:")
-    for nucleotide, count in nucleotide_counts.items():
-        print(f"{nucleotide}: {count}")
+    if nucleotides:
+        print("Contenido de nucleótidos seleccionados en la secuencia:")
+        for nucleotide, count in nucleotide_counts.items():
+            print(f"{nucleotide}: {count}")
+    else:
+        print("Contenido de todos los nucleótidos en la secuencia:")
+        for nucleotide, count in nucleotide_counts.items():
+            print(f"{nucleotide}: {count}")
 
 if __name__ == "__main__":
     main()
-
 
 ```
 
