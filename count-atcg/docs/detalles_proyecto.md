@@ -1,5 +1,5 @@
 # Conteo de nucleótidos 'atcg'
-Fecha: 04/03/2024
+Fecha: 14/03/2024
 
 **Participantes**:
 
@@ -7,17 +7,18 @@ Fecha: 04/03/2024
 
 ## Descripción del Problema
 
-El siguiente código cuenta las ocurrencias de los nucléotidos adenina, timina, citocina y guanina en una secuencia de tipo raw dada. Lo anterior surge de la necesidad de poder cuantificar el contenido de cada base nitrogenada de una secuencia de interés.
+El siguiente código cuenta las ocurrencias de los nucléotidos adenina, timina, citocina y guanina en una secuencia de DNA dada. Lo anterior surge de la necesidad de poder cuantificar el contenido de cada base nitrogenada de una secuencia de interés.
 
 
 ## Especificación de Requisitos
 
 Requisitos funcionales
 
-- Lee una secuencia de letras 'A', 'T', 'C', 'G' las cuales corresponden a una base nitrogenada. 
+- Lee una secuencia de letras 'A', 'T', 'C', 'G' las cuales corresponden a una base nitrogenada.
+- El nombre del archivo es pedido por línea de comando.
 - Calcula la ocurrencia de cada una de las bases en toda la secuencia de interés.
+- El usuario puede especificar que nucleótidos en especifíco le interesa consultar su ocurrencia.
 - Imprime a pantalla los resultados de cada una de las sumas correspondiente a cada letra
-- Produce un mensaje de error si el archivo no esta en formato raw.
 - Produce un mensaje de error si el archivo no existe. 
 
 Requisitos no funcionales
@@ -28,53 +29,43 @@ Requisitos no funcionales
 
 ## Análisis y Diseño
 
-Para resolver este problema se utiliza una función que recibe una secuencia de DNA y devuelve un diccionario que contiene el recuento de cada nucleótido. Maneja las excepciones para validar el archivo de entrada.
+Para resolver este problema se utiliza una función que recibe una secuencia de DNA y devuelve un diccionario que contiene el recuento de cada nucleótido, también maneja el caso cuando el usuario digita los nucelótidos en especifico que desea conocer su ocurrencia. Maneja las excepciones para validar el archivo de entrada. 
 
 ```
-Función contar_nucleótidos(secuencia):
-    // Inicializar un diccionario para contener los conteos de cada nucleótido
-    counts = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+Inicio del programa
 
-    // Iterar sobre cada nucleótido en la secuencia
-    Para cada nucleótido en secuencia:
-        // Verificar si el nucleótido está presente en el diccionario de conteo
-        Si nucleótido está en counts:
-            // Incrementar el contador para ese nucleótido
-            counts[nucleótido] += 1
-
-    // Devolver el diccionario de conteo
-    Devolver counts
-
+Función contar_nucleotidos(secuencia, nucleotidos):
+    Convertir la secuencia a mayúsculas
+    Inicializar un diccionario de recuentos de nucleótidos con valores iniciales de 0 para 'A', 'C', 'G' y 'T'
+    Para cada nucleótido en la secuencia:
+        Si el nucleótido está en el diccionario de recuentos:
+            Incrementar el recuento del nucleótido en el diccionario
+    Si se proporcionan nucleótidos específicos:
+        Crear un nuevo diccionario solo con los recuentos de los nucleótidos especificados
+        Devolver el nuevo diccionario
+    Sino:
+        Devolver el diccionario completo de recuentos de nucleótidos
 
 Función principal:
-    Intentar:
-        // Abrir el archivo de secuencia y leer la secuencia de ADN
-        Abrir 'sequence.txt' en modo lectura como archivo:
-            Leer toda la secuencia de ADN del archivo
-            Limpiar cualquier espacio en blanco alrededor de la secuencia
+    Parsear los argumentos de línea de comandos
+    Leer el nombre del archivo de la secuencia de ADN desde los argumentos
+    Leer la secuencia de ADN desde el archivo
+    Manejar excepciones:
+        Si el archivo no se encuentra, imprimir un mensaje de error y salir del programa
+        Si ocurre otro error, imprimir un mensaje de error y salir del programa
+    Limpiar la secuencia de ADN eliminando los caracteres de retorno de carro y salto de línea
+    Contar los nucleótidos en la secuencia, usando los nucleótidos especificados si se proporcionan
+    Imprimir los recuentos de los nucleótidos en la consola
 
-            // Verificar si la secuencia contiene caracteres de nueva línea
-            Si '\r' está en secuencia o '\n' está en secuencia:
-                Lanzar un ValueError indicando que el archivo no está en formato raw
+Inicio del programa principal:
+    Llamar a la función principal
 
-    Capturar FileNotFoundError:
-        Imprimir "El archivo sequence.txt no se encontró."
-        Terminar la ejecución
-    Capturar ValueError como e:
-        Imprimir "Error:", e
-        Terminar la ejecución
 
-    // Contar los nucleótidos en la secuencia de ADN
-    conteos_nucleótidos = contar_nucleótidos(secuencia)
-
-    // Imprimir los resultados
-    Imprimir "Contenido de nucleótidos en la secuencia:"
-    Para cada nucleótido, conteo en conteos_nucleótidos:
-        Imprimir nucleótido, conteo
 
 ```
 
-El archivo de entrada deberá estar en formato raw, en un archivo llamado sequence.txt, el cual solo deberá contener la secuencia de nucleótidos (A,T,C,G). Como salida, solo se mostará en pantalla el número de ocurrencia de cada base. Mensajes de error también se imprimirá en pantalla.
+El archivo de entrada deberá estar en formato raw y pasarse por línea de comando, el cual solo deberá contener la secuencia de nucleótidos (A,T,C,G), puede contener otras letras pero estan serán ignoradas. Si las letras son minúsculas, estás son cambiadas a mayúsculas. 
+Como salida, solo se mostará en pantalla el número de ocurrencia de cada base, de todas o de las específicadas. Mensajes de error también se imprimirá en pantalla.
 
 
 #### Caso de uso: 
@@ -96,11 +87,11 @@ El archivo de entrada deberá estar en formato raw, en un archivo llamado sequen
 ```
 
 - **Actor**: Usuario
-- **Descripción**: El actor proporciona un archivo de entrada con la secuencia de interés. El sistema valida la existencia del archivo y el que el formato del archivo sea el correcto. Calcula la ocurrencia de cada una de las bases nitrogenadas.
+- **Descripción**: El actor proporciona un archivo de entrada desde línea de comando, tiene la opción de especificar los nucleótidos en específico cuya ocurrencia quiera determinar. El sistema valida la existencia del archivo. Calcula la ocurrencia de cada una de las bases nitrogenadas. Letras diferentes serán ignoradas y las minúsculas serán convertidas a mayúsculas. 
   
 - **Flujo principal**:
-        1. El actor inicia el sistema proporcionando el archivo de entrada con la secuencia de DNA.
-	2. El sistema valida la existencia y formato de el archivo.
+        1. El actor inicia el sistema proporcionando el archivo de entrada con la secuencia de DNA, desde línea de comando.
+	2. El sistema valida la existencia de el archivo.
 	3. El sistema calcula la ocurrencia de cada una de las bases nitrogenadas.
 	4. El sistema muestra el resultado.
 
@@ -108,5 +99,3 @@ El archivo de entrada deberá estar en formato raw, en un archivo llamado sequen
 - **Flujos alternativos**:
 	 - Si el archivo proporcionado no existe.
     1) El sistema muestra un mensaje de error diciendo que el archivo no se encuentra.
-	- Si los datos de entrada no es una secuencia en formato raw.
-   1) El sistema muestra un mensaje de error el formato del archivo no es el correcto. 
