@@ -4,15 +4,17 @@ El siguiente proyecto toma la necesidad de cuantificar la ocurrencia de cada bas
 
 ## Uso
 
-El programa toma un archivo que contiene la secuencia de DNA en formato raw, nombrado sequence.txt
+El programa toma esta diseñado para que el usuario digite el nombre del archivo de texto que contiene la secuencia de DNA desde línea de comando, además de que le permite especificar que nucleotidos en específico desea contar. En general, el programa cuenta la ocurrencia de cada una de las bases nitrogenadas.
 
 ## Salida
 
 Como datos de salida se mostrará en pantalla la ocurrencia de cada una de las bases 'A', 'T', 'C', 'G'. 
+Si se especifíca que nucleótidos desea contar, se mostrará en pantalla la ocurrencia de dichas bases en específico. 
+Si no existe el archivo, se muestra un mensaje de error.
 
 ## Control de errores
 
-Cuando al programa se le da un archivo que no existe, que no contiene el formato adecuado, el programa mostrará un mensaje de error, especificando porque no puede funcionar correctamente.
+Cuando al programa se le da un archivo que no existe el programa mostrará un mensaje de error, especificando porque no puede funcionar correctamente.
 
 ## Pruebas
 
@@ -20,32 +22,42 @@ Hay cuatro casos de prueba:
 
 Caso de prueba 1:
 
-Descripción: Secuencia válida en formato raw
-Datos de entrada: sequence.txt ATGATCGG
-Resultado esperado: Ocurrencia de los nucleótidos A: 2 T: 2 C: 1 G: 3
+Descripción: Secuencia válida que contenga una secuencia de DNA 
+Datos de entrada: count_atcg.py dna.seq  
+Resultado esperado: Ocurrencia de los nucleótidos 
 
 Caso de prueba 2:
 
-Descripción: Secuencia con caracteres no válidos
-Datos de entrada: sequence.txt ATGATCXG
-Resultado esperado: Mensaje de error reportando que tiene caracteres no válidos.
+Descripción: El archivo no existe
+Datos de entrada: count_atcg.py dna.seq  (pero el archivo dna.seq no existe)
+Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
 
 Caso de prueba 3:
 
-Descripción: Secuencia que no esta en formato raw.
-Datos de entrada: Archivo sequence.txt (que no esta en formato raw)
-Resultado esperado: Mensaje de error, reportando que el formato del archivo no es correcto
+Descripción: Secuencia que no contenga carácteres válidos 
+Datos de entrada: count_atcg.py dna.seq  
+Resultado esperado: Verificar que el código ignore los carácteres que no coincidan con las bases nitrogenadas. 
 
 Caso de prueba 4:
 
-Descripción: Comprobación de la existencia del archivo.
-Datos de entrada: sequence.txt (dicho archivo no existe).
-Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
+Descripción: Conteo de nucleótidos en específico.
+Datos de entrada: 
+  count_atgc.py dna.seq -n A T
+  count_atgc.py dna.seq -nucleotides A T
+Resultado esperado: Ocurrencia de los nucleótidos específicados (A T)
+
+Caso de prueba 5: Cuando el archivo esta vacío 
+Datos de entrada: count_atcg.py dna.seq  (pero el archivo dna.seq esta vacío)
+Resultado esperado: Imprime que la ocurrencia de cada nucleótido es 0. 
 
 
 ## Datos
 
-Archivo con una secuencia de DNA en formato raw, nombrada 'sequence.txt'
+Nombre del archivo de texto con una secuencia de DNA en línea de comando. 
+
+  count_atgc.py dna.seq 
+  count_atgc.py dna.seq -n A T
+  count_atgc.py dna.seq -nucleotides A T
 
 
 ## Código fuente
