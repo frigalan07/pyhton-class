@@ -7,32 +7,36 @@ Los casos de prueba tienen como objetivo darle una mayor robustez al programa y 
 
 ### Caso de prueba 1: 
 
-- Descripción: Secuencia válida en formato raw 
-- Datos de entrada: sequence.txt `ATGATCGG`
-- Resultado esperado: Ocurrencia de los nucleótidos
-      A: 2
-      T: 2
-      C: 1
-      G: 3
+- Descripción: Secuencia válida que contenga una secuencia de DNA 
+- Datos de entrada: count_atcg.py dna.seq
+- Resultado esperado: Deberá contar correctamenta los nucleótidos y deberá mostrar a pantalla la ocurrencia de los nucleótidos
 
 ### Caso de prueba 2: 
 
-- Descripción: Secuencia con caracteres no válidos 
-- Datos de entrada: sequence.txt `ATGATCXG`
-- Resultado esperado: Mensaje de error reportando que tiene caracteres no válidos.
-
+- Descripción: El archivo no existe
+- Datos de entrada: count_atcg.py dna.seq (pero el archivo dna.seq no existe)
+- Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
 
 ### Caso de prueba 3: 
 
-- Descripción: Secuencia que no esta en formato raw. 
-- Datos de entrada: Archivo sequence.txt (que no esta en formato raw)
-- Resultado esperado: Mensaje de error, reportando que el formato del archivo no es correcto 
+- Descripción: Secuencia que no contenga carácteres válidos
+- Datos de entrada: count_atcg.py dna.seq
+- Resultado esperado: Verificar que el código ignore los carácteres que no coincidan con las bases nitrogenadas.
 
 ### Caso de prueba 4: 
 
-- Descripción: Comprobación de la existencia del archivo.
-- Datos de entrada: sequence.txt (dicho archivo no existe).
-- Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
+- Descripción: Conteo de nucleótidos en específico.
+- Datos de entrada:
+        count_atgc.py dna.seq -n A T
+        count_atgc.py dna.seq -nucleotides A T
+- Resultado esperado: Ocurrencia de los nucleótidos específicados (A T)
+
+### Caso de prueba 5: 
+
+- Descripción: Cuando el archivo esta vacío
+- Datos de entrada: count_atcg.py dna.seq (pero el archivo dna.seq esta vacío)
+- Resultado esperado: Imprime que la ocurrencia de cada nucleótido es 0.
+
 
 FIN
 
