@@ -81,11 +81,18 @@ parser.add_argument("data_file",type=str, help="Path donde se encuentra la secue
 parser.add_argument("-n","--nucleotides", type=str, default=["A", "T", "C", "G"], nargs="+", help="Elegir nucleótidos especificos a contar")
 args = parser.parse_args()
 
-#Abrir y leer el archivo
-my_file = open(args.data_file, "r")
-dna_sequence = my_file.read() #Aplico metodo para leer 
-my_file.close() #Cerrar el archivo
+#Verificar el argumento nucleotides 
+try:
+    for nucleotide in args.nucleotides:
+        if nucleotide.upper() not in ['A','T','C','G']:
+            raise argparse.ArgumentTypeError(f"The nucleotide '{nucleotide}' is invalid. Only the letters A, T, G, and C are allowed.")
+except argparse.ArgumentTypeError as e:
+    print("Error:", e)
+    exit()
 
+
+
+#Contar nucleótidos 
 nucl_a = dna_sequence.count('A')
 nucl_g = dna_sequence.count('G')
 nucl_c = dna_sequence.count('C')
@@ -93,19 +100,18 @@ nucl_t = dna_sequence.count('T')
 
 #Analizar si el usuario especifíco nucleotidos específicos 
 if args.nucleotides:
-    print("La cantidad de cada nucleótidos es:")
+    print("The count of each nucleotide is:")
     for nucleotide in args.nucleotides:
         if nucleotide == "A":
-            print("Cantidad de Adeninas:", nucl_a)
+            print("Count of Adenines:", nucl_a)
         elif nucleotide == "T":
-            print("Cantidad de Timinas:", nucl_t)
+            print("Count of Thymines:", nucl_t)
         elif nucleotide == "C":
-            print("Cantidad de Citosinas:", nucl_c)
+            print("Count of Cytosines:", nucl_c)
         elif nucleotide == "G":
-            print("Cantidad de Guaninas:", nucl_g)
+            print("Count of Guanines:", nucl_g)
 else:
-    print("La frecuencia de los nucleótidos es:\n- Adenina:", nucl_a, "\n- Guanina:", nucl_g, "\n- Timina:", nucl_t, "\n- Citosina:", nucl_c)
-
+    print("The number of each nucleotide present in the sequence is:\n- Adenine:", nucl_a, "\n- Guanine:", nucl_g, "\n- Thymine:", nucl_t, "\n- Cytosine:", nucl_c)
 ```
 
 
