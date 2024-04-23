@@ -90,7 +90,16 @@ except argparse.ArgumentTypeError as e:
     print("Error:", e)
     exit()
 
-
+#Abrir y leer el archivo + validaciones 
+try: 
+    with open(args.data_file, "r") as my_file:
+        dna_sequence = my_file.read().upper()  
+    if not dna_sequence:  #Checamos si el archivo esta vacío
+        print("Sorry, the file is empty")
+        exit()
+except IOError:  #Checamos si el archivo existe 
+    print("Sorry, couldn't find the file")
+    exit()
 
 #Contar nucleótidos 
 nucl_a = dna_sequence.count('A')
