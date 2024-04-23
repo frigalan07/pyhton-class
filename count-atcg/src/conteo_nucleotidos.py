@@ -28,9 +28,6 @@ ARGUMENTS
        dna.seq -n A T
        dna.seq -nucleotides A T
 
-METHOD
-       Utilización de funciones 
-
         
 '''
 
