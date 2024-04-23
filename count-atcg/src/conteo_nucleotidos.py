@@ -101,6 +101,16 @@ except IOError:  #Checamos si el archivo existe
     print("Sorry, couldn't find the file")
     exit()
 
+#Verificar si la secuencia contiene caracteres invalidos 
+try: 
+    for nucleotide in dna_sequence:
+        if nucleotide not in ['A', 'T', 'C', 'G']:
+            raise ValueError(f"The sequence contains '{nucleotide}', which is an invalid character.")
+except ValueError as e:
+    print("Error:", e)
+    exit()
+
+
 #Contar nucleótidos 
 nucl_a = dna_sequence.count('A')
 nucl_g = dna_sequence.count('G')
