@@ -5,50 +5,45 @@ El siguiente proyecto toma la necesidad de cuantificar la ocurrencia de cada bas
 ## Uso
 
 El programa toma esta diseñado para que el usuario digite el nombre del archivo de texto que contiene la secuencia de DNA desde línea de comando, además de que le permite especificar que nucleotidos en específico desea contar. En general, el programa cuenta la ocurrencia de cada una de las bases nitrogenadas.
+Además incluye validaciones en casos donde el archivo no existe, esta vacío o tiene carácteres no válidos 
 
 ## Salida
 
 Como datos de salida se mostrará en pantalla la ocurrencia de cada una de las bases 'A', 'T', 'C', 'G'. 
 Si se especifíca que nucleótidos desea contar, se mostrará en pantalla la ocurrencia de dichas bases en específico. 
-Si no existe el archivo, se muestra un mensaje de error.
+Si no existe el archivo, esta vacío o tiene carácteres no válidos, se muestra un mensaje de error.
 
 ## Control de errores
 
-Cuando al programa se le da un archivo que no existe el programa mostrará un mensaje de error, especificando porque no puede funcionar correctamente.
+1) *Argumentos inválidos:* Si se proporcionan nucleótidos no válidos en el argumento nucleotides, el script generará una excepción argparse.ArgumentTypeError y mostrará un mensaje de error adecuado.
+2) *Archivo no encontrado:* Si el archivo especificado no se puede encontrar, el script generará una excepción IOError y mostrará un mensaje de error indicando que no se pudo encontrar el archivo.
+3) *Archivo vacío:* Si el archivo especificado está vacío, el script generará un mensaje de error indicando que el archivo está vacío.
+4) *Secuencia con caracteres inválidos:* Si la secuencia de ADN contiene caracteres que no son nucleótidos válidos (A, T, G o C), el script generará una excepción ValueError y mostrará un mensaje de error indicando que la secuencia contiene caracteres inválidos.
 
 ## Pruebas
 
-Hay cuatro casos de prueba: 
+Hay 5 casos de prueba: 
 
-Caso de prueba 1:
+1) Archivo válido con nucleótidos predeterminados:
+Se proporciona un archivo de datos válido (data.txt) con la secuencia ATCGATCG.
+Se espera que el script cuente la frecuencia de cada nucleótido en la secuencia y los imprima correctamente.
 
-Descripción: Secuencia válida que contenga una secuencia de DNA 
-Datos de entrada: count_atcg.py dna.seq  
-Resultado esperado: Ocurrencia de los nucleótidos 
+2) Archivo válido con nucleótidos específicos especificados:
+Se proporciona un archivo de datos válido (data.txt) con la secuencia ATCGATCG.
+Se especifican los nucleótidos A y T para contar.
+Se espera que el script cuente la cantidad de Adeninas y Timinas en la secuencia y las imprima correctamente.
 
-Caso de prueba 2:
+3) Archivo válido con nucleótidos inválidos:
+Se proporciona un archivo de datos válido (data.txt) con la secuencia ATCGXATCG.
+Se espera que el script detecte el carácter inválido X en la secuencia y genere un mensaje de error indicando que la secuencia contiene un carácter inválido.
 
-Descripción: El archivo no existe
-Datos de entrada: count_atcg.py dna.seq  (pero el archivo dna.seq no existe)
-Resultado esperado: Mensaje de error, reportando que no existe tal archivo.
+4) Archivo vacío:
+Se crea un archivo vacío (empty.txt).
+Se espera que el script detecte que el archivo está vacío y genere un mensaje de error indicando que el archivo está vacío.
 
-Caso de prueba 3:
-
-Descripción: Secuencia que no contenga carácteres válidos 
-Datos de entrada: count_atcg.py dna.seq  
-Resultado esperado: Verificar que el código ignore los carácteres que no coincidan con las bases nitrogenadas. 
-
-Caso de prueba 4:
-
-Descripción: Conteo de nucleótidos en específico.
-Datos de entrada: 
-  count_atgc.py dna.seq -n A T
-  count_atgc.py dna.seq -nucleotides A T
-Resultado esperado: Ocurrencia de los nucleótidos específicados (A T)
-
-Caso de prueba 5: Cuando el archivo esta vacío 
-Datos de entrada: count_atcg.py dna.seq  (pero el archivo dna.seq esta vacío)
-Resultado esperado: Imprime que la ocurrencia de cada nucleótido es 0. 
+5) Archivo no encontrado:
+Se especifica un archivo que no existe (non_existent_file.txt).
+Se espera que el script genere un mensaje de error indicando que no se pudo encontrar el archivo.
 
 
 ## Datos
