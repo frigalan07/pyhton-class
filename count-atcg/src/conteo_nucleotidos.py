@@ -13,7 +13,7 @@ DESCRIPTION
 
       El siguiente script acepta el nombre del archivo con una secuencia de DNA desde línea de comando y te permite especificar 
       que nucleótidos deseas contar con la opción -n o --nucleotides.
-      
+
 CATEGORY
 
         Procesamiento de archivos de texto y análisis de datos
